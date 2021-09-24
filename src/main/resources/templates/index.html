@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+<div layout:fragment="main_section">
+    <div class="row">
+        <div class="col-7 row">
+            <div class="d-flex flex-column container mt-2" th:each="soccerMatch : ${liveSoccer.response}">
+                <div class="d-flex flex-column bg-light justify-content-center">
+                    <div class="d-flex flex-row bg-light">
+                        <img  th:src="${soccerMatch.getLeague().getLogo()}"  width="3%" height="100%">
+                        <p class="mb-0" style="margin-left: 10px; margin-right: 10px" th:text="${soccerMatch.getLeague().getCountry()}"></p>
+                        <b th:text="${soccerMatch.getLeague().getName()}"></b>
+                    </div>
+                </div>
+                <div class="row d-flex border-bottom justify-content-center">
+                    <div class="col-3 d-flex flex-column align-content-center justify-content-center" style="margin-right: 50px">
+                        <p class="ms-2 mb-0" style="color: red" th:text="${soccerMatch.getFixture().getStatus().getElapsed()}+'+'"></p>
+                        <p class="m-0">INPLAY</p>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex mb-1 mt-2">
+                            <img  th:src="${soccerMatch.getTeams().getHome().getLogo()}"  width="15%" height="15%">
+                            <p class="ms-2 mb-0" th:text="${soccerMatch.getTeams().getHome().getName()}"></p>
+                        </div>
+                        <div class="d-flex mb-1 mt-2">
+                            <img  th:src="${soccerMatch.getTeams().getAway().getLogo()}"  width="15%" height="15%">
+                            <p class="ms-2 mb-0" th:text="${soccerMatch.getTeams().getAway().getName()}"></p>
+                        </div>
+                    </div>
+                    <div class="col d-flex flex-column align-content-center justify-content-center">
+                        <div class="d-flex mb-3">
+                            <p class="ms-2 mb-0" th:text="${soccerMatch.getGoals().getHome()}"></p>
+                        </div>
+                        <div class="d-flex mt-1 ">
+                            <p class="ms-2 mb-0" th:text="${soccerMatch.getGoals().getAway()}"></p>
+                        </div>
+                    </div>
+                    <div class="col-2 d-flex flex-column align-content-center justify-content-center">
+                    <button class=" btn btn-dark">show</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5 border-start">
+            <div class="border-bottom ps-5">
+                <h4>Last Matches</h4>
+                <div th:each="lastMatch : ${lastMatchesVideos}">
+                    <div th:utext="${lastMatch.getEmbed()}"></div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <h4>Standings</h4>
+                <h5>Serie A</h5>
+                <div class="row">
+                    <div class="d-flex col-4">
+                        <p style="margin: 2px">Club</p>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <p class="col" style="margin: 0px">MP</p>
+                            <p class="col" style="margin: 0px">W</p>
+                            <p class="col" style="margin: 0px">D</p>
+                            <p class="col" style="margin: 0px">L</p>
+                            <p class="col" style="margin: 0px">GF-GA</p>
+                            <p class="col" style="margin: 0px">GD</p>
+                            <p class="col" style="margin: 0px">PTs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row border-top justify-content-between" th:each="leagueTeamStanding : ${leagueStanding}">
+                    <div class="d-flex col-4  mt-1 mb-1">
+                        <p style="margin: 0px" th:text="${leagueTeamStanding.getPosition()}"></p>
+                        <img  th:src="${leagueTeamStanding.getTeam_logo()}"  width="15%" height="100%">
+                        <p style="margin: 0px" th:text="${leagueTeamStanding.getTeam_name()}"></p>
+                    </div>
+                    <div class="col-8  mt-1 mb-1">
+                        <div class="row">
+                            <p class="col" style="margin: 0px" th:text="${leagueTeamStanding.getPlayed()}"></p>
+                            <p class="col" style="margin: 0px" th:text="${leagueTeamStanding.getWins()}"></p>
+                            <p class="col" style="margin: 0px" th:text="${leagueTeamStanding.getDraws()}"></p>
+                            <p class="col" style="margin: 0px" th:text="${leagueTeamStanding.getLost()}"></p>
+                            <p class="col" style="margin: 0px" th:text="${leagueTeamStanding.getGoals()}"></p>
+                            <p class="col" style="margin: 0px" th:text="${leagueTeamStanding.getGoal_diff()}"></p>
+                            <p class="col" style="margin: 0px" th:text="${leagueTeamStanding.getPoints()}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
